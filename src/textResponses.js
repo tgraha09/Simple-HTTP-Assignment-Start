@@ -1,4 +1,4 @@
 module.exports = {
-    hello: "Hello",
-    time: new Date().toTimeString().split(' ')[0]
-}
+  hello: 'Hello',
+  time: new Date().toTimeString().split(' ')[0],
+};
