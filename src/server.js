@@ -31,7 +31,7 @@ const onRequest = (request, response) => {
     case '/helloJSON':
         jsonHandler.getHelloJSON(request, response)
       break;
-    case '/meme':
+    case '/dankmeme':
         imageHandler.getSpongegar(request, response)
       break;
     default:
