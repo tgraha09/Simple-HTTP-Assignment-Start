@@ -1,63 +1,46 @@
 const http = require('http');
-const fs = require('fs');
-const textResponse = require('./textResponses');
-const jsonResponse = require('./jsonResponses');
-const htmlResponse = require('./htmlResponses');
 
-const index = fs.readFileSync(`${__dirname}/../client/client.html`);
-const index2 = fs.readFileSync(`${__dirname}/../client/client2.html`);
+const textHandler = require('./textResponses.js');
+const jsonHandler = require('./jsonResponses.js');
+const htmlHandler = require('./htmlResponses.js');
+const imageHandler = require('./imageResponses.js');
+
+
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 // console.log(index);
 const onRequest = (request, response) => {
   const { url } = request;
 
   console.log(`url: ${request.url}`);
-  if (url === '/') {
-    // console.log("url: "+request.url);
-    response.writeHead(200, { 'content-type': 'text/html' });
-    response.write(index);
-    response.end();
-  } else if (url === '/page2') {
-    // console.log("url: "+request.url);
-    response.writeHead(200, { 'content-type': 'text/html' });
-    response.write(index2);
-    response.end();
-  } else if (url === '/hello') {
-    // console.log("url: "+request.url);
-    response.writeHead(200, { 'content-type': 'text/html' });
-    response.write(textResponse.hello);
-    response.end();
-  } else if (url === '/time') {
-    // console.log("url: "+request.url);
-    // console.log(textResponse.time);
-    response.writeHead(200, { 'content-type': 'text/html' });
-    response.write(textResponse.time);
-    response.end();
-  } else if (url === '/timeJSON') {
-    // console.log("url: "+request.url);
-    // console.log(textResponse.time);
-    response.writeHead(200, { 'content-type': 'text/html' });
-    response.write(jsonResponse.time);
-    response.end();
-  } else if (url === '/helloJSON') {
-    // console.log("url: "+request.url);
-    // console.log(textResponse.time);
-    response.writeHead(200, { 'content-type': 'text/html' });
-    response.write(jsonResponse.hello);
-    response.end();
-  } else if (url === '/meme') {
-    // console.log("url: "+request.url);
-    // console.log(textResponse.time);
-    response.writeHead(200, { 'content-type': 'text/html' });
-    response.write(htmlResponse.meme);
-    response.end();
-  } else {
-    // console.log("url: "+request.url);
-    // console.log(textResponse.time);
-    response.writeHead(200, { 'content-type': 'text/html' });
-    response.write(index);
-    response.end();
+  switch (url) {
+    case '/':
+        htmlHandler.getIndex(request, response)
+      break;
+    case '/page2':
+        htmlHandler.getIndex2(request, response)
+      break;
+    case '/hello':
+        textHandler.getHello(request, response)
+      break;
+    case '/time':
+        textHandler.getTime(request, response)
+     
+      break;
+    case '/timeJSON':
+        jsonHandler.getTimeJSON(request, response)
+      break;
+    case '/helloJSON':
+        jsonHandler.getHelloJSON(request, response)
+      break;
+    case '/meme':
+        imageHandler.getSpongegar(request, response)
+      break;
+
+    default:
+        htmlHandler.getIndex(request, response)
+      break;
   }
+  
 };
 
 http.createServer(onRequest).listen(port);
