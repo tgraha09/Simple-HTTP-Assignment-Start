@@ -24,7 +24,6 @@ const onRequest = (request, response) => {
       break;
     case '/time':
         textHandler.getTime(request, response)
-     
       break;
     case '/timeJSON':
         jsonHandler.getTimeJSON(request, response)
@@ -35,7 +34,6 @@ const onRequest = (request, response) => {
     case '/meme':
         imageHandler.getSpongegar(request, response)
       break;
-
     default:
         htmlHandler.getIndex(request, response)
       break;

@@ -8,5 +8,4 @@ const getSpongegar = (request, response) => {
 
 module.exports = {
   getSpongegar: getSpongegar,
-
 };
